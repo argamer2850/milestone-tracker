@@ -1,0 +1,610 @@
+/* Basic Reset & Body Styles */
+:root {
+    /* --- Light Theme (Original Vibrant Palette) --- */
+    --bg-color-light: #f4f7f6;
+    --text-color-light: #333;
+    --card-bg-light: #fff;
+    --button-bg-light: #4CAF50;
+    --button-text-light: #fff;
+    --border-color-light: #ddd;
+    --clock-bg-light: #2c3e50;
+    --clock-text-light: #00ff00; /* Neon green */
+
+    /* Remaining Time Specific - Light Theme (Danger Red!) */
+    --remaining-clock-bg-light: #c0392b; /* Deep, dangerous red */
+    --remaining-clock-text-light: #fff; /* White text for contrast on red */
+    --remaining-glow-light: #ff6b6b; /* Brighter red for glow */
+
+    /* --- Dark Theme (Original Deep Indigo Palette) --- */
+    --bg-color-dark: #2c3e50;
+    --text-color-dark: #ecf0f1;
+    --card-bg-dark: #34495e;
+    --button-text-dark: #fff;
+    --border-color-dark: #555;
+    --clock-bg-dark: #1a252f;
+    --clock-text-dark: #00ffff; /* Aqua blue */
+
+    /* Remaining Time Specific - Dark Theme (Danger Red!) */
+    --remaining-clock-bg-dark: #8b0000; /* Even deeper, warning red */
+    --remaining-clock-text-dark: #fff; /* White text for contrast on red */
+    --remaining-glow-dark: #ff4500; /* Orange-red for glow */
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: var(--bg-color-light);
+    color: var(--text-color-light);
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to top */
+    min-height: 100vh;
+    box-sizing: border-box;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+body.dark-theme {
+    background-color: var(--bg-color-dark);
+    color: var(--text-color-dark);
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    width: 100%;
+    background-color: var(--card-bg-light);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+    margin-top: 50px; /* Space from top */
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+body.dark-theme .container {
+    background-color: var(--card-bg-dark);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    border-bottom: 2px solid var(--border-color-light);
+    padding-bottom: 20px;
+}
+
+body.dark-theme header {
+    border-color: var(--border-color-dark);
+}
+
+header h1 {
+    font-family: 'Orbitron', sans-serif;
+    color: #4CAF50; /* Primary color */
+    margin: 0;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-theme header h1 {
+    color: #00ffff; /* Changed to Aqua blue for dark theme */
+}
+
+.theme-toggle {
+    background-color: var(--button-bg-light);
+    color: var(--button-text-light);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s ease-in-out;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-theme .theme-toggle {
+    background-color: #00ffff; /* Changed to Aqua blue for dark theme */
+    color: #333; /* Dark grey text for better contrast */
+}
+
+.theme-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.theme-toggle:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Milestone Display */
+.milestone-display {
+    background-color: var(--card-bg-light);
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 40px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-color-light);
+    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+body.dark-theme .milestone-display {
+    background-color: var(--card-bg-dark);
+    border-color: var(--border-color-dark);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.milestone-display h2 {
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+body.dark-theme .milestone-display h2 {
+    color: var(--text-color-dark);
+}
+
+.milestone-display p {
+    font-size: 1.1em;
+    color: #666;
+}
+
+body.dark-theme .milestone-display p {
+    color: #bbb;
+}
+
+.milestone-display span {
+    font-weight: bold;
+    color: #007bff; /* Accent color */
+}
+
+body.dark-theme .milestone-display span {
+    color: #1abc9c; /* Accent color for dark theme */
+}
+
+/* Clocks Section */
+.clocks {
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+    margin-bottom: 50px;
+    flex-wrap: wrap; /* Allow clocks to wrap on smaller screens */
+}
+
+.clock-card {
+    background-color: var(--clock-bg-light);
+    color: var(--clock-text-light);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    flex: 1;
+    min-width: 280px; /* Minimum width for clocks */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
+    border: 3px solid rgba(0, 255, 0, 0.5); /* Neon border */
+    position: relative; /* For pseudo-elements if desired */
+    overflow: hidden;
+}
+
+body.dark-theme .clock-card {
+    background-color: var(--clock-bg-dark);
+    color: var(--clock-text-dark);
+    border-color: rgba(0, 255, 255, 0.5); /* Aqua border */
+}
+
+/* Specific styling for the 'Remaining Time' clock card - DANGER VIBE! */
+#remaining-time-card {
+    background-color: var(--remaining-clock-bg-light); /* Danger Red Background */
+    color: var(--remaining-clock-text-light); /* White Text on Red */
+    border-color: var(--remaining-glow-light); /* Red Glow Border */
+    box-shadow: 0 0 20px var(--remaining-glow-light), 0 0 30px var(--remaining-glow-light); /* Stronger Red Glow */
+}
+
+body.dark-theme #remaining-time-card {
+    background-color: var(--remaining-clock-bg-dark);
+    color: var(--remaining-clock-text-dark);
+    border-color: var(--remaining-glow-dark);
+    box-shadow: 0 0 20px var(--remaining-glow-dark), 0 0 30px var(--remaining-glow-dark);
+}
+
+/* Specific styling for the 'Time Spent' clock card in dark mode */
+body.dark-theme #time-spent-card {
+    background-color: var(--clock-bg-light); /* Use light mode background for Time Spent */
+    color: var(--clock-text-light); /* Use light mode text color for Time Spent */
+    border-color: rgba(0, 255, 0, 0.5); /* Use light mode border color (green) for Time Spent */
+}
+
+.clock-card h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Remove text-shadow for remaining-time-card's h3 if it inherits differently */
+#remaining-time-card h3 {
+    text-shadow: none; /* Make text cleaner on bright red */
+}
+
+.digital-clock {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3.5em;
+    font-weight: bold;
+    text-shadow: 0 0 15px var(--clock-text-light), 0 0 25px var(--clock-text-light);
+    animation: pulse 1.5s infinite alternate; /* Subtle pulse effect */
+}
+
+body.dark-theme .digital-clock {
+    text-shadow: 0 0 15px var(--clock-text-dark), 0 0 25px var(--clock-text-dark);
+}
+
+/* Specific text shadow for the 'Remaining Time' digits (Red Glow) */
+#remaining-time-card .digital-clock {
+    text-shadow: 0 0 15px var(--remaining-clock-text-light), 0 0 25px var(--remaining-glow-light);
+}
+body.dark-theme #remaining-time-card .digital-clock {
+    text-shadow: 0 0 15px var(--remaining-clock-text-dark), 0 0 25px var(--remaining-glow-dark);
+}
+
+/* Specific text shadow for the 'Time Spent' digits when in dark mode (now using light mode colors) */
+body.dark-theme #time-spent-card .digital-clock {
+    text-shadow: 0 0 15px var(--clock-text-light), 0 0 25px var(--clock-text-light);
+}
+
+
+@keyframes pulse {
+    from {
+        transform: scale(1);
+        opacity: 0.9;
+    }
+    to {
+        transform: scale(1.02);
+        opacity: 1;
+    }
+}
+
+/* Actions Buttons */
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+}
+
+.fancy-button {
+    display: inline-block;
+    padding: 18px 35px;
+    background-color: var(--button-bg-light);
+    color: var(--button-text-light);
+    border: none;
+    border-radius: 30px;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-decoration: none; /* For the anchor tag button */
+    cursor: pointer;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+body.dark-theme .fancy-button {
+    background-color: #00ffff; /* Aqua blue background */
+    color: #333; /* Dark grey text for better contrast */
+}
+
+.fancy-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: -1;
+}
+
+.fancy-button:hover::before {
+    left: 100%;
+}
+
+.fancy-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+}
+
+.fancy-button:active {
+    transform: translateY(0);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Popup Styles */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.popup.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.popup-content {
+    background-color: var(--card-bg-light);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    text-align: left;
+    max-width: 600px;
+    width: 90%;
+    transform: translateY(20px);
+    transition: transform 0.3s ease-in-out, background-color 0.3s;
+    max-height: 80vh; /* Limit height for scrollability */
+    overflow-y: auto; /* Enable scrolling for many dropdowns */
+    position: relative;
+}
+
+body.dark-theme .popup-content {
+    background-color: var(--card-bg-dark);
+}
+
+.popup.active .popup-content {
+    transform: translateY(0);
+}
+
+.popup-content h3 {
+    font-size: 2em;
+    color: #4CAF50;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+body.dark-theme .popup-content h3 {
+    color: #e67e22; /* Retained previous accent color for this specific h3 inside popup */
+}
+
+/* Accordion Styles */
+.accordion-container {
+    margin-bottom: 30px;
+}
+
+.accordion-item {
+    border: 1px solid var(--border-color-light);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+body.dark-theme .accordion-item {
+    border-color: var(--border-color-dark);
+}
+
+.accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: var(--bg-color-light); /* Lighter background for header */
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: var(--text-color-light);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-theme .accordion-header {
+    background-color: var(--card-bg-dark); /* Darker background for header in dark theme */
+    color: var(--text-color-dark);
+}
+
+.accordion-header:hover {
+    background-color: var(--border-color-light); /* Subtle hover effect */
+}
+
+body.dark-theme .accordion-header:hover {
+    background-color: var(--border-color-dark);
+}
+
+.accordion-header label {
+    flex-grow: 1; /* Allow label to take available space */
+    cursor: pointer; /* Ensure label is clickable */
+}
+
+.toggle-icon {
+    font-size: 1.5em;
+    line-height: 1;
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+}
+
+.accordion-item.active .toggle-icon {
+    transform: rotate(45deg); /* Rotates the plus to a cross */
+}
+
+.accordion-content {
+    padding: 0 20px;
+    background-color: var(--card-bg-light); /* Content background */
+    color: var(--text-color-light);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+}
+
+body.dark-theme .accordion-content {
+    background-color: var(--card-bg-dark);
+    color: var(--text-color-dark);
+}
+
+.accordion-item.active .accordion-content {
+    max-height: 300px; /* Adjust as needed based on max content height */
+    padding: 15px 20px 20px;
+}
+
+.accordion-content p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.accordion-content p:last-child {
+    margin-bottom: 0;
+}
+
+#close-popup-btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #e74c3c; /* Red for close button */
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 30px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#close-popup-btn:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    header {
+        flex-direction: column;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    header h1 {
+        font-size: 2em;
+        margin-bottom: 15px;
+    }
+
+    .theme-toggle {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .milestone-display {
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+
+    .milestone-display h2 {
+        font-size: 1.8em;
+    }
+
+    .milestone-display p {
+        font-size: 1em;
+    }
+
+    .clocks {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .clock-card {
+        min-width: unset; /* Remove min-width for mobile */
+        width: 100%;
+    }
+
+    .digital-clock {
+        font-size: 2.8em;
+    }
+
+    .actions {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .fancy-button {
+        width: 100%;
+        padding: 15px 25px;
+        font-size: 1.1em;
+    }
+
+    .popup-content {
+        padding: 25px;
+        width: 95%;
+    }
+
+    .popup-content h3 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+
+    /* Accordion responsiveness */
+    .accordion-header {
+        font-size: 1em;
+        padding: 12px 15px;
+    }
+
+    .accordion-content {
+        padding: 0 15px;
+    }
+
+    .accordion-item.active .accordion-content {
+        padding: 10px 15px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    header h1 {
+        font-size: 1.7em;
+    }
+
+    .milestone-display h2 {
+        font-size: 1.5em;
+    }
+
+    .digital-clock {
+        font-size: 2.2em;
+    }
+
+    .fancy-button {
+        font-size: 1em;
+        padding: 12px 20px;
+    }
+}
